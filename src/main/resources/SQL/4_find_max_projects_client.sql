@@ -1,5 +1,7 @@
-SELECT name FROM client
-WHERE id IN (
+SELECT name, count(project.id) AS PROJECT_COUNT FROM client
+JOIN project ON client.id = project.client_id
+GROUP BY name
+HAVING client.id IN (
     SELECT client_id FROM project
     GROUP BY client_id
     HAVING count(id) IN (
